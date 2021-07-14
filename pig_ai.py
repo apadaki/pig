@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 
 def get_val(f, i, j):
@@ -45,7 +46,7 @@ def generate_prob_contour(f, target=100, filename='images/prob_contour.png'):
     fig, ax = plt.subplots()
     CS = ax.contour(X, Y, Z, levels=10)
     ax.clabel(CS, inline=True, fontsize=10)
-    ax.set_title('Probability matrix contour')
+    ax.set_title('Approximate win probability')
     ax.set_xlabel('current player score')
     ax.set_ylabel('other player score')
     print('saved AI probability contour to {}\n'.format(filename))
@@ -91,8 +92,9 @@ def save_probabilities(f, filename='probabilities.txt'):
     print('saved AI probability matrix to {}\n'.format(filename))
 
 def load_probabilities(filename='probabilities.txt'):
+    f = np.loadtxt(filename)
     print('AI probabilities loaded\n')
-    return np.loadtxt(filename)
+    return f
 
 if __name__ == '__main__':
     f = get_probabilities(100)
