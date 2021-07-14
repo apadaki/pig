@@ -6,9 +6,9 @@ import pig_ai
 DIE, TARGET = 6, 100
 TURN_TIME = 0.5
 
-# ai_probs = pig_ai.get_probabilities(TARGET)
-# pig_ai.save_probabilities(ai_probs, 'probabilities_{}_{}.txt'.format(DIE, TARGET))
-ai_probs = pig_ai.load_probabilities('probabilities_{}_{}.txt'.format(DIE, TARGET))
+ai_probs = pig_ai.get_probabilities(TARGET)
+pig_ai.save_probabilities(ai_probs, 'probabilities_{}_{}.txt'.format(DIE, TARGET))
+# ai_probs = pig_ai.load_probabilities('probabilities_{}_{}.txt'.format(DIE, TARGET))
 
 # END USER PARAMS
 
