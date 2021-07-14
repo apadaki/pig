@@ -6,9 +6,9 @@ import pig_ai
 DIE, TARGET = 6, 100
 TURN_TIME = 0.5
 
-ai_probs = pig_ai.get_probabilities(TARGET)
-pig_ai.save_probabilities(ai_probs, 'probabilities_{}_{}.txt'.format(DIE, TARGET))
-# ai_probs = pig_ai.load_probabilities('probabilities_{}_{}.txt'.format(DIE, TARGET))
+# ai_probs = pig_ai.get_probabilities(TARGET)
+# pig_ai.save_probabilities(ai_probs, 'probabilities_{}_{}.txt'.format(DIE, TARGET))
+ai_probs = pig_ai.load_probabilities('probabilities_{}_{}.txt'.format(DIE, TARGET))
 
 # END USER PARAMS
 
@@ -54,7 +54,7 @@ def turn(player, isAI, score, other_score, log = True):
     return 0, player, score
 
 def game(AI_A=False, AI_B=False, log=True, turn_buffer=False, playerA = 'Alice', playerB = 'Bob'):
-    if not (AI_A and AI_B):
+    if not (AI_A and AI_B) or log:
         log = True
         turn_buffer = False
     if log:
@@ -81,13 +81,21 @@ def game(AI_A=False, AI_B=False, log=True, turn_buffer=False, playerA = 'Alice',
     return playerA == winner
 
 
-"""
-    NUM_TRIALS = 10000
-    wins_first = 0
-    for i in range(NUM_TRIALS):
-        if i%10 == 0:
-            print(i)
-        wins_first += game(AI_A = True, AI_B = True, log = False)
-    print('win probability for first player: {:.3f}'.format(wins_first/NUM_TRIALS))
-"""
-game(AI_A = True, AI_B = False, turn_buffer = True)
+
+if __name__ == '__main__':
+    """ User Arguments (see defaults above):
+            - AI_A, AI_B        determines which player(s) are controlled by the AI
+            - log               determines whether game information is logged to the console
+            - turn_buffer       determines whether logging pauses between turns
+            - playerA, playerB  are player names
+    """
+    game(AI_A = True, AI_B = False, turn_buffer = True)
+    """ short script to get win percentage by first player when both play optimally
+        NUM_TRIALS = 10000
+        wins_first = 0
+        for i in range(NUM_TRIALS):
+            if i%10 == 0:
+                print(i)
+            wins_first += game(AI_A = True, AI_B = True, log = False)
+        print('win probability for first player: {:.3f}'.format(wins_first/NUM_TRIALS))
+    """
