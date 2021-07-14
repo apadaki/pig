@@ -2,12 +2,15 @@ import random, time
 import numpy as np
 import pig_ai
 
-
+# USER PARAMS
 DIE, TARGET = 6, 100
 TURN_TIME = 0.5
-# f = pig_ai.get_probabilities(TARGET)
-# pig_ai.save_matrix(np.matrix(f), 'probabilities_{}_{}.txt'.format(DIE, TARGET))
-f = pig_ai.load_probabilities('probabilities_{}_{}.txt'.format(DIE, TARGET))
+
+ai_probs = pig_ai.get_probabilities(TARGET)
+pig_ai.save_probabilities(ai_probs, 'probabilities_{}_{}.txt'.format(DIE, TARGET))
+# ai_probs = pig_ai.load_probabilities('probabilities_{}_{}.txt'.format(DIE, TARGET))
+
+# END USER PARAMS
 
 def roll():
     return random.randint(1,DIE)
@@ -35,7 +38,7 @@ def turn(player, isAI, score, other_score, log = True):
 
         if not bust and score + round < TARGET:
             if isAI:
-                hold, hold_val, roll_val = pig_ai.hold(f, score, other_score, round, DIE)
+                hold, hold_val, roll_val = pig_ai.hold(ai_probs, score, other_score, round, DIE)
                 if log:
                     print('\t{} rolled a {}! {} with confidence {:.4f}.'.format(player, r, 'HOLDING' if hold else 'ROLLING AGAIN', max(hold_val, roll_val)/(hold_val+roll_val)))
             else:
@@ -50,14 +53,13 @@ def turn(player, isAI, score, other_score, log = True):
         return player, player, score
     return 0, player, score
 
-def game(AI_A=False, AI_B=False, log=True, turn_buffer=False):
+def game(AI_A=False, AI_B=False, log=True, turn_buffer=False, playerA = 'Alice', playerB = 'Bob'):
     if not (AI_A and AI_B):
         log = True
         turn_buffer = False
     if log:
         print('NEW GAME [{}-sided die | first to {} wins]'.format(DIE, TARGET))
     random.seed()
-    playerA, playerB = 'Alice', 'Bob'
     scoreA,scoreB = 0,0
     winner = 0
     t = 0

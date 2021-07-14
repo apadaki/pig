@@ -36,7 +36,8 @@ def get_probabilities(n, die=6):
     
     return f
 
-def generate_prob_contour(prob_mat, target=100, filename='images/prob_contour.png'):
+def generate_prob_contour(f, target=100, filename='images/prob_contour.png'):
+    prob_mat = np.matrix(f)
     x = np.arange(0, target, 1)
     y = np.arange(0, target, 1)
     X, Y = np.meshgrid(x,y)
@@ -82,7 +83,8 @@ def hold(f, x, y, r, die=6):
         roll_val += 1/die * (1-get_val(f, y, x+r+i))
     return [(1 if hold_val > roll_val else 0), hold_val, roll_val] 
 
-def save_matrix(prob_mat, filename='probabilities.txt'):
+def save_probabilities(f, filename='probabilities.txt'):
+    prob_mat = np.matrix(f)
     with open(filename,'wb') as f:
         for line in prob_mat:
             np.savetxt(f, line)
@@ -93,10 +95,8 @@ def load_probabilities(filename='probabilities.txt'):
     return np.loadtxt(filename)
 
 if __name__ == '__main__':
-    # f = get_probabilities(100)
+    f = get_probabilities(100)
+    save_probabilities(f)
     # generate_cutoff_contour(f)
-    # prob_mat = np.matrix(f)
-    # generate_prob_contour(prob_mat)
-    # save_matrix(prob_mat)
+    # generate_prob_contour(f)
     # f = load_probabilities()
-
