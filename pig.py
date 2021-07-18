@@ -54,7 +54,7 @@ def turn(player, isAI, score, other_score, log = True):
     return 0, player, score
 
 def game(AI_A=False, AI_B=False, log=True, turn_buffer=False, playerA = 'Alice', playerB = 'Bob'):
-    if not (AI_A and AI_B) or log:
+    if not (AI_A and AI_B):
         log = True
         turn_buffer = False
     if log:
@@ -89,7 +89,7 @@ if __name__ == '__main__':
             - turn_buffer       determines whether logging pauses between turns
             - playerA, playerB  are player names
     """
-    game(AI_A = True, AI_B = False, turn_buffer = True)
+    game(AI_A = True, AI_B = True, turn_buffer = True)
     """ short script to get win percentage by first player when both play optimally
         NUM_TRIALS = 10000
         wins_first = 0
