@@ -78,7 +78,9 @@ def generate_cutoff_contour(f, target=100, filename='images/cutoff_contour.png')
     
 
 def hold(f, x, y, r, die=6):
-    hold_val = 1-get_val(f, y, x+r)
+    target = len(f)
+    prob_opp_rollout = (5/6)**((target-y)/4) # approximate probability opponent wins by rolling out the game
+    hold_val = max(1-get_val(f, y, x+r), 1-prob_opp_rollout)
     roll_val = 1/die * (1-get_val(f, y, x))
     for i in range(2,die+1):
         roll_val += 1/die * (1-get_val(f, y, x+r+i))
@@ -98,7 +100,9 @@ def load_probabilities(filename='probabilities.txt'):
 
 if __name__ == '__main__':
     f = get_probabilities(100)
-    save_probabilities(f)
+    # print(f[96][99])
+    print(hold(f, 81, 97, 18))
+    # save_probabilities(f)
     # generate_cutoff_contour(f)
     # generate_prob_contour(f)
     # f = load_probabilities()
