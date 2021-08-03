@@ -10,8 +10,3 @@ You can also generate different contour plots relating to the AI with `pig_ai.ge
 
 ## Usage
 Clone this repository, edit the user parameters in `pig.py`, and run `python pig.py` in a terminal.
-
-## To-Do
-- Add GUI for the game
-- 3D visualization of the AI
-- Explore different variations of Pig
